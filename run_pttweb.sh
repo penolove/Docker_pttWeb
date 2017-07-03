@@ -1,2 +1,3 @@
-#docker run -ti --name ptt_core loser/ubuntu:postgresql_sh 
-docker run -ti --name ptt_core penolove/ubuntu:PttWeb_201705
+docker run -ti --name ptt_core --net host \
+           -d penolove/ubuntu:PttWeb_201707
+#           -d penolove/ubuntu:pure_postgresql \

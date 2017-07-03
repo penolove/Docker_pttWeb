@@ -1,13 +1,8 @@
-
-build images
-```
-cd Docker_postgresql/
-./build.sh
-```
-
 # for just runing pttWeb
 
+
 start container(with interative bash)
+
 ```
 cd ..
 ./run_pttweb.sh
@@ -32,35 +27,40 @@ there are three things need to be prepared
 - images.tar.gz (rcords for images)
 
 
-
-write out backup psql
+##　write out backup psql
 ```
 export PATH=/usr/pgsql-9.5/bin/:$PATH
 pg_dump dbname > outfile
 ```
 
-put the outfile/starbucks.sqlite/images.tar.gz in this repository folder
+## prepare files for restore
+prepare follows and put in D4U
+- outfile
+- starbucks.sqlite
+- images.tar.gz 
 
-and execute
+
+## start container
 ```
 ./run_pttweb_restoreDB.sh
 ```
 
-update psql
+## inside container update psql
+
 ```
-#clean db
+### clean db
 su stream
-python ~/drop.py
-exit
-# restore db
+python ~/D4U/drop.py
+
+### restore db
 su - postgres
 psql foodmining < outfile
 ```
 
-update sqlite/images
+### update sqlite/images
 ```
 su stream 
-cd ~
+cd ~/D4U/orders/
 ./replace.sh
 ```
 
@@ -74,7 +74,6 @@ vim ~/Documents/minimum_django/pttWeb/view.py
 # edit endDate
 e.g. endDate='2017.5.08'
 ```
-
 
 
 start service
