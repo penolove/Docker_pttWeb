@@ -27,43 +27,33 @@ there are three things need to be prepared
 - images.tar.gz (rcords for images)
 
 
-##　write out backup psql
+## ways to write out backup psql 
 ```
-export PATH=/usr/pgsql-9.5/bin/:$PATH
-pg_dump dbname > outfile
+#centos
+export PATH=/usr/pgsql-9.5/bin/:$PATH 
+#ubuntu
+export PATH=/usr/lib/postgresql/9.5/lib/:$PATH
+pg_dump foodmining > outfile
 ```
-
-## prepare files for restore
-prepare follows and put in D4U
-- outfile
-- starbucks.sqlite
-- images.tar.gz 
 
 
 ## start container
+before starting continer, uncomment the mount outfile order in the run_ptt_restoreDB.sh
 ```
 ./run_pttweb_restoreDB.sh
 ```
 
-## inside container update psql
-
+## backup 
+inside container runing 
 ```
-### clean db
-su stream
-python ~/D4U/drop.py
-
-### restore db
-su - postgres
-psql foodmining < outfile
+./D4U/order/backup.sh
 ```
 
-### update sqlite/images
+## restore 
+inside container runing 
 ```
-su stream 
-cd ~/D4U/orders/
-./replace.sh
+./D4U/order/restore.sh
 ```
-
 
 
 before starting django
